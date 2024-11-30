@@ -1,0 +1,41 @@
+@import
+url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+	box-sizing: border-box;
+}
+
+.body 
+{  
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+    /* background-image: "https://wallpaperaccess.com/full/340434.png"; */
+    background: #FF416C;
+	background: -webkit-linear-gradient(to right, #f04729, #ed9bae);
+	background: linear-gradient(to right, #ea492d, #e099a9);
+	background-repeat: repeat;
+	background-size: cover;
+    overflow-y: scroll;
+}  
+
+h1{  
+    text-align: center;  
+    color: #04060f;  
+    font-weight: bold;
+
+}  
+
+.container {
+    display: flex;
+    justify-content: center;
+	align-items: center;
+    flex-direction: row;
+}
+
+.card {
+    margin: 5px;
+}

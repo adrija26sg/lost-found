@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block link %} 
+<link rel="stylesheet" href="../static/css/dashboard.css">
+{% endblock %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %} 
+<div class="body">
+<h1 class="text-center">Welcome {{ session['user']['name'] }}!</h1>
+
+<div class="container dashboard">
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center">Lost Requests</h3>
+            {% if items_lost|length == 0: %}
+            <h5 class="text-center">No lost items requests posted</h5>
+            {% else: %}
+            {% for item in items_lost: %}
+            <div class="card" style="width: 18rem;">
+            <img src="../static/images/img.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ item['name'] }}</h5>
+                <p class="card-text">{{ item['description'] }} <br> Status: {{ item['resolved'] }}</p>
+                <a href="/delete/lost/{{ item['_id'] }}" class="btn btn-primary">Delete</a>
+            </div>
+            </div>
+            {% endfor %}
+            {% endif %} 
+        </div>
+
+        <div class="col">
+            <h3 class="text-center">Found Requests</h3>
+            {% if items_found|length == 0: %}
+            <h5 class="text-center">No found items requests posted</h5>
+            {% else: %}
+            {% for item in items_found: %}
+            <div class="card" style="width: 18rem;">
+            <img src="../static/images/img.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ item['name'] }}</h5>
+                <p class="card-text">{{ item['description'] }} <br> Status: {{ item['resolved'] }}</p>
+                <a href="/delete/found/{{ item['_id'] }}" class="btn btn-primary">Delete</a>
+            </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col">
+            <h3 class="text-center">Lost Claims</h3>
+            {% if claimed_lost|length == 0: %}
+            <h5 class="text-center">No claims made for your lost items</h5>
+            {% else: %}
+            {% for claim in claimed_lost: %}
+                {% set item = claim[0] %}
+                {% set users = claim[1] %}
+            <div class="card" style="width: 18rem;">
+            <img src="../static/images/img.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ item['name'] }}</h5>
+                <p class="card-text">{{ item['description'] }}</p>
+                {% for user in users: %}
+                Name: {{ user['name'] }}
+                Contact: {{ user['email'] }}
+                <a href="/resolve/lost/{{ item['_id'] }}" class="btn btn-primary">Resolve</a>          
+                {% endfor %}
+            </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col">
+            <h3 class="text-center">Found Claims</h3>
+            {% if claimed_found|length == 0: %}
+            <h5 class="text-center">No claims made for your found items</h5>
+            {% else: %}
+            {% for claim in claimed_found: %}
+                {% set item = claim[0] %}
+                {% set users = claim[1] %}
+            <div class="card" style="width: 18rem;">
+            <img src="../static/images/img.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ item['name'] }}</h5>
+                <p class="card-text">{{ item['description'] }}</p>
+                {% for user in users: %}
+                <h5>Name: {{ user['name'] }}</h5>
+                <p>Contact: {{ user['email'] }}</p>
+                <a href="/resolve/found/{{ item['_id'] }}" class="btn btn-primary">Resolve</a>
+                {% endfor %}
+            </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
